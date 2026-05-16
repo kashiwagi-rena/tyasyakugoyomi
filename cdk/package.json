@@ -1,0 +1,26 @@
+{
+  "name": "tyasyakugoyomi-cdk",
+  "version": "0.1.0",
+  "private": true,
+  "bin": {
+    "tyasyakugoyomi-cdk": "bin/app.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "synth": "cdk synth",
+    "deploy": "cdk deploy",
+    "destroy": "cdk destroy"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "aws-cdk": "^2.173.4",
+    "ts-node": "^10.9.2",
+    "typescript": "~5.7.2"
+  },
+  "dependencies": {
+    "aws-cdk-lib": "^2.173.4",
+    "constructs": "^10.4.2",
+    "source-map-support": "^0.5.21"
+  }
+}

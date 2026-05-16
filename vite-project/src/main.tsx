@@ -1,7 +1,12 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router'
+import { Authenticator } from '@aws-amplify/ui-react'
+import '@aws-amplify/ui-react/styles.css'
+import './amplify'
 import Layout from './components/Layout'
+import RequireAuth from './components/RequireAuth'
+import Login from './pages/Login'
 import Home from './pages/Home'
 import Schedule from './pages/Schedule'
 import Naming from './pages/Naming'
@@ -9,9 +14,14 @@ import History from './pages/History'
 import './index.css'
 
 const router = createBrowserRouter([
+  { path: '/login', element: <Login /> },
   {
     path: '/',
-    element: <Layout />,
+    element: (
+      <RequireAuth>
+        <Layout />
+      </RequireAuth>
+    ),
     children: [
       { index: true, element: <Home /> },
       { path: 'schedule', element: <Schedule /> },
@@ -23,6 +33,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <Authenticator.Provider>
+      <RouterProvider router={router} />
+    </Authenticator.Provider>
   </StrictMode>,
 )
