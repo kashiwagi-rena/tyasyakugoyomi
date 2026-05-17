@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useParams, useNavigate } from 'react-router'
+import { useParams, useNavigate, useSearchParams } from 'react-router'
 import { suggestNames, type NamingSuggestion } from '../lib/gemini'
 import { createCalendarEvent } from '../lib/googleCalendar'
 import { useGoogleCalendar } from '../contexts/GoogleCalendarContext'
@@ -13,6 +13,9 @@ const CATEGORY_EMOJI: Record<string, string> = {
 
 export default function Naming() {
   const { date } = useParams<{ date: string }>()
+  const [searchParams] = useSearchParams()
+  const startTime = searchParams.get('start') ?? '10:00'
+  const endTime = searchParams.get('end') ?? '12:00'
   const navigate = useNavigate()
   const { accessToken, connectCalendar } = useGoogleCalendar()
   const [suggestions, setSuggestions] = useState<NamingSuggestion[]>([])
@@ -54,16 +57,14 @@ export default function Naming() {
 
   const formattedDate = date
     ? new Date(date).toLocaleDateString('ja-JP', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
+        year: 'numeric', month: 'long', day: 'numeric',
       })
     : ''
 
   return (
     <main>
       <h1>名付け</h1>
-      <p>{formattedDate}</p>
+      <p>{formattedDate}　{startTime} 〜 {endTime}</p>
 
       {!accessToken && (
         <button onClick={() => connectCalendar()}>

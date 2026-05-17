@@ -15,14 +15,8 @@ import Callback from './pages/Callback'
 import './index.css'
 
 const router = createBrowserRouter([
-  {
-    path: '/login',
-    element: <Login />,
-  },
-  {
-    path: '/callback',
-    element: <Callback />,
-  },
+  { path: '/login', element: <Login /> },
+  { path: '/callback', element: <Callback /> },
   {
     path: '/',
     element: (
