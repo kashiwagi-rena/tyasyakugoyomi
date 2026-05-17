@@ -1,7 +1,9 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router'
+import { GoogleOAuthProvider } from '@react-oauth/google'
 import './lib/amplify'
+import { GoogleCalendarProvider } from './contexts/GoogleCalendarContext'
 import Layout from './components/Layout'
 import AuthGuard from './components/AuthGuard'
 import Home from './pages/Home'
@@ -39,6 +41,10 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
+      <GoogleCalendarProvider>
+        <RouterProvider router={router} />
+      </GoogleCalendarProvider>
+    </GoogleOAuthProvider>
   </StrictMode>,
 )
