@@ -1,13 +1,102 @@
-import { useParams } from 'react-router'
+import { useState } from 'react'
+import { useParams, useNavigate } from 'react-router'
+import { suggestNames, type NamingSuggestion } from '../lib/gemini'
+import { saveNaming } from '../lib/namingStorage'
+
+const CATEGORY_EMOJI: Record<string, string> = {
+  天候: '🌤',
+  お花: '🌸',
+  自然: '🍃',
+  風情: '🎋',
+}
 
 export default function Naming() {
-  const { date } = useParams()
+  const { date } = useParams<{ date: string }>()
+  const navigate = useNavigate()
+  const [suggestions, setSuggestions] = useState<NamingSuggestion[]>([])
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [selected, setSelected] = useState<NamingSuggestion | null>(null)
+  const [saved, setSaved] = useState(false)
+
+  const handleSuggest = async () => {
+    if (!date) return
+    setLoading(true)
+    setError(null)
+    setSelected(null)
+    setSaved(false)
+    try {
+      const result = await suggestNames(date)
+      setSuggestions(result)
+    } catch {
+      setError('AIの提案取得に失敗しました。もう一度お試しください。')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleSave = () => {
+    if (!date || !selected) return
+    saveNaming({ date, name: selected.name, reason: selected.reason })
+    setSaved(true)
+  }
+
+  const formattedDate = date
+    ? new Date(date).toLocaleDateString('ja-JP', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      })
+    : ''
 
   return (
     <main>
       <h1>名付け</h1>
-      <p>日付：{date}</p>
-      <p>（AIによる季節名の提案・写真が表示される画面です）</p>
+      <p>{formattedDate}</p>
+
+      <button onClick={handleSuggest} disabled={loading}>
+        {loading ? 'AIが考えています...' : 'AIに季節の名前を提案してもらう'}
+      </button>
+
+      {error && <p>{error}</p>}
+
+      {suggestions.length > 0 && (
+        <section>
+          <h2>提案された銘</h2>
+          <ul>
+            {suggestions.map((s) => (
+              <li
+                key={s.name}
+                onClick={() => setSelected(s)}
+                style={{
+                  cursor: 'pointer',
+                  fontWeight: selected?.name === s.name ? 'bold' : 'normal',
+                  border: selected?.name === s.name ? '2px solid #333' : '1px solid #ccc',
+                  padding: '12px',
+                  marginBottom: '8px',
+                  borderRadius: '8px',
+                }}
+              >
+                <span>{CATEGORY_EMOJI[s.category]} </span>
+                <strong>{s.name}</strong>
+                <span>（{s.category}）</span>
+                <p style={{ margin: '4px 0 0', fontSize: '0.9em' }}>{s.reason}</p>
+              </li>
+            ))}
+          </ul>
+
+          {selected && !saved && (
+            <button onClick={handleSave}>「{selected.name}」を保存する</button>
+          )}
+
+          {saved && (
+            <div>
+              <p>「{selected?.name}」を保存しました</p>
+              <button onClick={() => navigate('/history')}>過去の名付けを見る</button>
+            </div>
+          )}
+        </section>
+      )}
     </main>
   )
 }
