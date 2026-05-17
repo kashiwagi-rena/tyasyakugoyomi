@@ -1,0 +1,68 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100dvh;
+  background-color: #ede8dc;
+}
+
+.heroImage {
+  width: 100%;
+  object-fit: cover;
+  display: block;
+  max-width: 430px;
+}
+
+@media (min-width: 768px) {
+  .heroImage {
+    max-width: 100%;
+  }
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 430px;
+  padding: 32px 24px;
+  box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+  .buttons {
+    flex-direction: row;
+    max-width: 100%;
+    padding: 32px 48px;
+  }
+}
+
+.sakuraButton,
+.matchaButton {
+  width: 100%;
+  padding: 18px;
+  border: none;
+  border-radius: 50px;
+  font-size: 16px;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  color: #fff;
+}
+
+.sakuraButton:hover,
+.matchaButton:hover {
+  opacity: 0.85;
+}
+
+.sakuraButton {
+  background-color: #e8a0b4;
+  box-shadow: 0 4px 16px rgba(232, 160, 180, 0.4);
+}
+
+.matchaButton {
+  background-color: #7a9e7e;
+  box-shadow: 0 4px 16px rgba(122, 158, 126, 0.4);
+}
