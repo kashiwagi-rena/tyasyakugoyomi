@@ -1,0 +1,70 @@
+.nextLessonButton {
+  width: 100%;
+  max-width: 340px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 18px 24px;
+
+  border: 1px solid #e8c7cf;
+  border-radius: 999px;
+
+  background: linear-gradient(
+    180deg,
+    #f8dfe5 0%,
+    #f3cfd8 100%
+  );
+
+  box-shadow:
+    0 6px 18px rgba(210, 170, 180, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.nextLessonButton:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 10px 24px rgba(210, 170, 180, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.nextLessonButton:active {
+  transform: scale(0.98);
+}
+
+.nextLessonSub {
+  font-size: 13px;
+  letter-spacing: 0.08em;
+
+  color: #7d5a63;
+
+  margin-bottom: 6px;
+}
+
+.nextLessonDate {
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+
+  color: #5f4148;
+}
+
+@media screen and (max-width: 768px) {
+  .nextLessonButton {
+    padding: 16px 20px;
+  }
+
+  .nextLessonDate {
+    font-size: 17px;
+  }
+}
