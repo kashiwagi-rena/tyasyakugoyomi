@@ -9,8 +9,14 @@ Amplify.configure({
         oauth: {
           domain: import.meta.env.VITE_COGNITO_DOMAIN,
           scopes: ['email', 'openid', 'profile'],
-          redirectSignIn: ['http://localhost:5173/callback'],
-          redirectSignOut: ['http://localhost:5173/'],
+          redirectSignIn: [
+            'http://localhost:5173/callback',
+            'https://tyasyakugoyomi.vercel.app/callback',
+          ],
+          redirectSignOut: [
+            'http://localhost:5173/',
+            'https://tyasyakugoyomi.vercel.app/',
+          ],
           responseType: 'code',
         },
       },
