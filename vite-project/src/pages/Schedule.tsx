@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router'
+import styles from './Schedule.module.css'
 
 export default function Schedule() {
   const [date, setDate] = useState('')
@@ -14,10 +15,10 @@ export default function Schedule() {
   }
 
   return (
-    <main>
+    <main className={styles.container}>
       <h1>お稽古日の登録</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
+      <form className={styles.form} onSubmit={handleSubmit}>
+        <label className={styles.label}>
           お稽古日
           <input
             type="date"
@@ -26,7 +27,7 @@ export default function Schedule() {
             required
           />
         </label>
-        <label>
+        <label className={styles.label}>
           開始時間
           <input
             type="time"
@@ -35,7 +36,7 @@ export default function Schedule() {
             required
           />
         </label>
-        <label>
+        <label className={styles.label}>
           終了時間
           <input
             type="time"
@@ -44,7 +45,7 @@ export default function Schedule() {
             required
           />
         </label>
-        <button type="submit">この日の名付けへ</button>
+        <button className={styles.button} type="submit">この日の名付けへ</button>
       </form>
     </main>
   )
