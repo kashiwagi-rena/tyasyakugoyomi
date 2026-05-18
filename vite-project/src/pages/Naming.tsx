@@ -3,6 +3,8 @@ import { useParams, useNavigate, useSearchParams } from 'react-router'
 import { suggestNames, type NamingSuggestion } from '../lib/gemini'
 import { createCalendarEvent } from '../lib/googleCalendar'
 import { useGoogleCalendar } from '../contexts/GoogleCalendarContext'
+import GoogleSignInButton from '../components/GoogleSignInButton'
+import styles from './Naming.module.css'
 
 const CATEGORY_EMOJI: Record<string, string> = {
   天候: '🌤',
@@ -62,59 +64,59 @@ export default function Naming() {
     : ''
 
   return (
-    <main>
+    <main className={styles.container}>
       <h1>名付け</h1>
-      <p>{formattedDate}　{startTime} 〜 {endTime}</p>
+      <p className={styles.date}>{formattedDate}　{startTime} 〜 {endTime}</p>
 
       {!accessToken && (
-        <button onClick={() => connectCalendar()}>
-          Googleカレンダーに接続する
-        </button>
+        <div className={styles.connectArea}>
+          <p className={styles.connectNote}>名付けをカレンダーに保存するために接続してください</p>
+          <GoogleSignInButton onClick={() => connectCalendar()} label="Googleカレンダーに接続" />
+        </div>
       )}
 
       {accessToken && (
-        <button onClick={handleSuggest} disabled={loading}>
+        <button className={styles.suggestButton} onClick={handleSuggest} disabled={loading}>
           {loading ? 'AIが考えています...' : 'AIに季節の名前を提案してもらう'}
         </button>
       )}
 
-      {error && <p>{error}</p>}
+      {error && <p className={styles.error}>{error}</p>}
 
       {suggestions.length > 0 && (
-        <section>
+        <section className={styles.section}>
           <h2>提案された銘</h2>
-          <ul>
+          <ul className={styles.list}>
             {suggestions.map((s) => (
               <li
                 key={s.name}
                 onClick={() => setSelected(s)}
-                style={{
-                  cursor: 'pointer',
-                  fontWeight: selected?.name === s.name ? 'bold' : 'normal',
-                  border: selected?.name === s.name ? '2px solid #333' : '1px solid #ccc',
-                  padding: '12px',
-                  marginBottom: '8px',
-                  borderRadius: '8px',
-                }}
+                className={`${styles.card} ${selected?.name === s.name ? styles.cardSelected : ''}`}
               >
-                <span>{CATEGORY_EMOJI[s.category]} </span>
-                <strong>{s.name}</strong>
-                <span>（{s.category}）</span>
-                <p style={{ margin: '4px 0 0', fontSize: '0.9em' }}>{s.reason}</p>
+                <div className={styles.cardHeader}>
+                  <span>{CATEGORY_EMOJI[s.category]}</span>
+                  <strong className={styles.cardName}>
+                    <ruby>{s.name}<rt>{s.reading}</rt></ruby>
+                  </strong>
+                  <span className={styles.cardCategory}>（{s.category}）</span>
+                </div>
+                <p className={styles.cardReason}>{s.reason}</p>
               </li>
             ))}
           </ul>
 
           {selected && !saved && (
-            <button onClick={handleSave} disabled={saving}>
-              {saving ? '保存中...' : `「${selected.name}」をカレンダーに保存する`}
+            <button className={styles.saveButton} onClick={handleSave} disabled={saving}>
+              {saving ? '保存中...' : (
+                <>「<ruby>{selected.name}<rt>{selected.reading}</rt></ruby>」をカレンダーに保存する</>
+              )}
             </button>
           )}
 
           {saved && (
-            <div>
-              <p>「{selected?.name}」をGoogleカレンダーに保存しました</p>
-              <button onClick={() => navigate('/history')}>過去の名付けを見る</button>
+            <div className={styles.savedBox}>
+              <p className={styles.savedText}>「<ruby>{selected?.name}<rt>{selected?.reading}</rt></ruby>」をGoogleカレンダーに保存しました</p>
+              <button className={styles.historyButton} onClick={() => navigate('/history')}>過去の名付けを見る</button>
             </div>
           )}
         </section>

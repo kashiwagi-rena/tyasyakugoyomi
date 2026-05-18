@@ -1,5 +1,6 @@
 import { useAuth } from '../hooks/useAuth'
 import styles from './Login.module.css'
+import GoogleSignInButton from '../components/GoogleSignInButton'
 
 const features = [
   { icon: '📅', label: 'お稽古日を\n登録' },
@@ -46,12 +47,7 @@ export default function Login() {
       </div>
 
       <div className={styles.buttons}>
-        <button className={styles.primaryButton} onClick={login}>
-          はじめる
-        </button>
-        <button className={styles.secondaryButton} onClick={login}>
-          ログイン
-        </button>
+        <GoogleSignInButton onClick={login} label="Googleではじめる" />
       </div>
 
       <div className={styles.bottomDecor}>

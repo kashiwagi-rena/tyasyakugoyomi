@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { getCalendarEvents, deleteCalendarEvent, type CalendarEvent } from '../lib/googleCalendar'
 import { useGoogleCalendar } from '../contexts/GoogleCalendarContext'
 import styles from './History.module.css'
+import GoogleSignInButton from '../components/GoogleSignInButton'
 
 export default function History() {
   const { accessToken, connectCalendar } = useGoogleCalendar()
@@ -33,9 +34,7 @@ export default function History() {
       <main className={styles.container}>
         <h1>過去の名付け</h1>
         <p className={styles.message}>カレンダーに接続すると履歴が表示されます</p>
-        <button className={styles.connectButton} onClick={() => connectCalendar()}>
-          Googleカレンダーに接続する
-        </button>
+        <GoogleSignInButton onClick={() => connectCalendar()} label="Googleカレンダーに接続する" />
       </main>
     )
   }

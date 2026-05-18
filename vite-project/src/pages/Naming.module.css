@@ -1,0 +1,171 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 24px;
+  min-height: 100dvh;
+  box-sizing: border-box;
+}
+
+.date {
+  font-size: 14px;
+  color: #5a7a5a;
+  margin: 4px 0 24px;
+}
+
+.connectArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.connectNote {
+  font-size: 13px;
+  color: #8a8a8a;
+  text-align: center;
+}
+
+.suggestButton {
+  padding: 14px 28px;
+  background-color: #7a9e7e;
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  font-size: 15px;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  width: 100%;
+  max-width: 360px;
+}
+
+.suggestButton:hover:not(:disabled) {
+  opacity: 0.85;
+}
+
+.suggestButton:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.error {
+  color: #c0392b;
+  font-size: 13px;
+  margin: 8px 0;
+}
+
+.section {
+  width: 100%;
+  max-width: 400px;
+  margin-top: 24px;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.card {
+  padding: 14px 16px;
+  border: 1px solid #c8d8c8;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.card:hover {
+  border-color: #7a9e7e;
+}
+
+.cardSelected {
+  border: 2px solid #c9768a;
+  box-shadow: 0 2px 8px rgba(201, 118, 138, 0.2);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.cardName {
+  font-size: 20px;
+  color: #3a2e22;
+}
+
+.cardName rt {
+  font-size: 11px;
+  color: #7a9e7e;
+}
+
+.cardCategory {
+  font-size: 13px;
+  color: #8a8a8a;
+}
+
+.cardReason {
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: #5a5a5a;
+  line-height: 1.6;
+}
+
+.saveButton {
+  margin-top: 20px;
+  padding: 14px 28px;
+  background-color: #c9768a;
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  font-size: 15px;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  width: 100%;
+}
+
+.saveButton:hover:not(:disabled) {
+  opacity: 0.85;
+}
+
+.saveButton:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.savedBox {
+  margin-top: 20px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid #c8d8c8;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.savedText {
+  font-size: 14px;
+  color: #5a7a5a;
+  margin: 0 0 12px;
+}
+
+.historyButton {
+  padding: 12px 24px;
+  background: transparent;
+  border: 1.5px solid #7a9e7e;
+  border-radius: 50px;
+  color: #7a9e7e;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.historyButton:hover {
+  background: #f0f5f0;
+}
